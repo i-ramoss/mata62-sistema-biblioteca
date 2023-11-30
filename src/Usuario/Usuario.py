@@ -1,8 +1,13 @@
+from ..EmprestimoBehavior import IEmprestimoBehavior
+
+
 class Usuario:
-    def __init__(self, codigo: int, nome: str, intervaloEmprestimo: int) -> None:
+    def __init__(
+        self, codigo: int, nome: str, emprestimoBehavior: IEmprestimoBehavior
+    ) -> None:
         self.__codigo = codigo
         self.__nome = nome
-        self.__intervaloEmprestimo = intervaloEmprestimo
+        self.__emprestimoBehavior = emprestimoBehavior
 
     def getCodigo(self):
         return self.__codigo
@@ -10,5 +15,5 @@ class Usuario:
     def getNome(self):
         return self.__nome
 
-    def getIntervaloEmprestimo(self):
-        return self.__intervaloEmprestimo
+    def getEmprestimoBehavior(self):
+        self.__emprestimoBehavior.verificarPossibilidadeDeEmprestimo()
