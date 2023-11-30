@@ -8,12 +8,22 @@ class Usuario:
         self.__codigo = codigo
         self.__nome = nome
         self.__emprestimoBehavior = emprestimoBehavior
+        self.__qtdReservas = 0
 
-    def getCodigo(self):
+    def getCodigo(self) -> int:
         return self.__codigo
 
-    def getNome(self):
+    def getNome(self) -> str:
         return self.__nome
 
-    def getEmprestimoBehavior(self):
+    def getEmprestimoBehavior(self) -> IEmprestimoBehavior:
         self.__emprestimoBehavior.verificarPossibilidadeDeEmprestimo()
+
+    def getQtdReservas(self) -> int:
+        return self.__qtdReservas
+
+    def adicionarReserva(self) -> None:
+        self.__qtdReservas += 1
+
+    def removerReserva(self) -> None:
+        self.__qtdReservas -= 1
