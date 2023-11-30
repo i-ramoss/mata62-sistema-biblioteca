@@ -1,8 +1,7 @@
 class Usuario:
-    def __init__(self, codigo: int, nome: str, intervalo_emprestimo: int) -> None:
-        self.__codigo = codigo
-        self.__nome = nome
-        self.__intervalo_emprestimo = intervalo_emprestimo
+    def __init__(self, codigo: int, nome: str, ) -> None:
+        self._codigo = codigo
+        self._nome = nome
 
     def get_codigo(self):
         return self.__codigo
