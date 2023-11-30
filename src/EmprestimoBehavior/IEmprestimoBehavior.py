@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class IRegraEmprestimo(ABC):
+class IEmprestimoBehavior(ABC):
     @abstractmethod
-    def realizarEmprestiomo(self):
+    def verificarPossibilidadeDeEmprestimo(self):
         raise NotImplementedError
