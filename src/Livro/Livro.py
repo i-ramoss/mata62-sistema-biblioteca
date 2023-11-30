@@ -6,12 +6,12 @@ class Livro:
         editora: str,
         autores: list[str],
         edicao: str,
-        ano_publicacao: int,
+        anoPublicacao: int,
     ) -> None:
         self.__codigo = codigo
         self.__titulo = titulo
         self.__editora = editora
         self.__autores = autores
         self.__edicao = edicao
-        self.__ano_publicacao = ano_publicacao
-        self.__qtd_disponivel = 1
+        self.__anoPublicacao = anoPublicacao
+        self.__qtdDisponivel = 1
