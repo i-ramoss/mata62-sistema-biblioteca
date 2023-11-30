@@ -40,8 +40,34 @@ class Biblioteca:
         #
         pass
 
-    def realizarReserva(self):
-        pass
+    def realizarReserva(self, codigoUsuario: int, codigoLivro: int) -> None:
+        # Buscar o usuario pelo codigo
+        usuario_encontrado = self.__buscarUsuarioPeloCodigo(codigoUsuario)
+        livroEncontrado = self.__buscarLivroPeloCodigo(codigoLivro)
 
-    def realizarDevolucao(self):
+        if usuario_encontrado == None:
+            # msg de erro:
+            print("Usuario não encontrado. Digite um codigo valido.")
+            return
+
+        if livroEncontrado == None:
+            # msg de erro:
+            print("Livro não encontrado. Digite um codigo valido.")
+            return
+
+        # Checar quantas reservas ele possui (maximo 3)
+        if usuario_encontrado.getQtdReservas() >= 3:
+            # msg de erro:
+            print("O usuario ja possui o limite de reservas.")
+
+        # Realizar reserva
+        usuario_encontrado.adicionarReserva()
+        livroEncontrado.adicionarReserva()
+
+        # msg de sucesso:
+        print(
+            f"O livro {livroEncontrado.getTitulo()} foi reservado para {usuario_encontrado.getNome()} com sucesso!"
+        )
+
+    def realizarDevolucao(self) -> None:
         pass
