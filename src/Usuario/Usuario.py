@@ -17,6 +17,12 @@ class Usuario:
         return self.__nome
 
     def getEmprestimoBehavior(self) -> IEmprestimoBehavior:
+        return self.__emprestimoBehavior
+
+    def getIntervaloDeTempoDeEmprestimo(self) -> int:
+        return self.__emprestimoBehavior.getIntervaloDeTempoDeEmprestimo()
+
+    def verificarPossibilidadeDeEmprestimo(self) -> bool:
         self.__emprestimoBehavior.verificarPossibilidadeDeEmprestimo()
 
     def getQtdReservas(self) -> int:
