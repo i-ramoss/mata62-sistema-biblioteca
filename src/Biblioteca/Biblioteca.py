@@ -2,7 +2,14 @@ from ..Livro import Livro
 from ..Usuario import Usuario
 
 
-class Biblioteca:
+class BibliotecaSingletonFacede:
+    __instance = None
+
+    def __new__(cls):
+        if cls.__instance == None:
+            cls.__instance = super().__new__(cls)
+        return cls.__instance
+
     def __init__(self):
         self.__livros: list[Livro] = []
         self.__usuarios: list[Usuario] = []
@@ -69,5 +76,5 @@ class Biblioteca:
             f"O livro {livroEncontrado.getTitulo()} foi reservado para {usuario_encontrado.getNome()} com sucesso!"
         )
 
-    def realizarDevolucao(self) -> None:
+    def realizarDevolucao(self, codigoUsuario: int, codigoLivro: int) -> None:
         pass

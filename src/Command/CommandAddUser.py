@@ -1,5 +1,5 @@
 from .ICommand import ICommand
-from ..Biblioteca.Biblioteca import BibliotecaSingletonFacede
+from ..Biblioteca.Biblioteca import BibliotecaSingletonFacede 
 
 class CommandConsultaLivro(ICommand):
     def __init__(self, restoComando):
@@ -7,4 +7,4 @@ class CommandConsultaLivro(ICommand):
 
     def execute(): 
         biblioteca = BibliotecaSingletonFacede()
-        biblioteca.consultaLivro(self.__restoComando[0])
+        biblioteca.adicionarUsuario(self.__restoComando[0])
