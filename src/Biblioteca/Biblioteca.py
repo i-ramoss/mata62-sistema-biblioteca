@@ -1,10 +1,12 @@
-from ..Livro import Livro
-from ..Usuario import Usuario
+from ..Usuario.Usuario import Usuario
+from ..Reserva.Reserva import Reserva
+from ..Livro.Livro import Livro 
 
 
 class BibliotecaSingletonFacede:
     __instance = None
 
+    #Codigo relacionado a implementação do Singleton em python
     def __new__(cls):
         if cls.__instance == None:
             cls.__instance = super().__new__(cls)
@@ -13,6 +15,7 @@ class BibliotecaSingletonFacede:
     def __init__(self):
         self.__livros: list[Livro] = []
         self.__usuarios: list[Usuario] = []
+        self.__reservas: list[Reserva] = []
 
     def adicionarLivro(self, novoLivro: Livro, qtdExemplares: int) -> None:
         livroEncontrado = self.__buscarLivroPeloCodigo(novoLivro.getCodigo())
@@ -29,7 +32,13 @@ class BibliotecaSingletonFacede:
             if livro.getCodigo() == codigoLivro:
                 return livro
 
-    def adicionarUsuario(self, novoUsuario: Usuario) -> None:
+    def adicionarUsuario(self, codigoUsuario: int, nomeUsuario: str, cargoUsuario: int) -> None:
+        if self.__buscarUsuarioPeloCodigo(codigoUsuario) != None:
+            novoUsuario = Usuario(codigoUsuario, nomeUsuario, emprestimoBehavior)
+            self.__usuarios.append(novoUsuario)
+
+
+    def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
         usuarioEncontrado = self.__buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
 
         if usuarioEncontrado == None:
@@ -78,3 +87,15 @@ class BibliotecaSingletonFacede:
 
     def realizarDevolucao(self, codigoUsuario: int, codigoLivro: int) -> None:
         pass
+    
+    def observarLivroProfessor(self, codigoProfessor: int, codigoLivro: int) -> None:
+        pass
+    
+    def mostraNotificaoProfessor(self, codigoProfessor: int) -> None:
+        pass
+    
+    def __criaReserva(self, codigoUsuario:int, codigoLivro:int) -> Reserva:
+        usuario = self.__buscarUsuarioPeloCodigo(codigoUsuario)
+        livro = self.__buscarLivroPeloCodigo(codigoLivro)
+        return Reserva(usuario, livro)
+

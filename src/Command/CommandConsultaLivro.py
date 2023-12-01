@@ -5,6 +5,6 @@ class CommandConsultaLivro(ICommand):
     def __init__(self, restoComando):
         self.__restoComando =  restoComando
 
-    def execute(): 
+    def execute(self): 
         biblioteca = BibliotecaSingletonFacede()
         biblioteca.consultaLivro(self.__restoComando[0])

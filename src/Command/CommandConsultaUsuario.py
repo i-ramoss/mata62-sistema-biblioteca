@@ -5,6 +5,6 @@ class CommandConsultaUsuario(ICommand):
     def __init__(self, restoComando):
         self.__restoComando =  restoComando
 
-    def execute(): 
+    def execute(self): 
         biblioteca = Biblioteca()
         biblioteca.ConsultaUsuario(self.__restoComando[0])
