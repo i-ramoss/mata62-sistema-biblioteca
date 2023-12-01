@@ -2,7 +2,8 @@ from .IEmprestimoBehavior import IEmprestimoBehavior
 
 
 class EmprestimoGraduacao(IEmprestimoBehavior):
-    __intervaloDeTempoDeEmprestimo = 3
+    def __init__(self):
+        self.__intervaloDeTempoDeEmprestimo = 3
 
     def verificarPossibilidadeDeEmprestimo():
         # Verificar disponibilidade do livro na biblioteca
@@ -14,3 +15,6 @@ class EmprestimoGraduacao(IEmprestimoBehavior):
         # Verificar se o aluno já não possui o livro em questão emprestado
         print("Regra emprestimo graducacao")
         pass
+
+    def getIntervaloDeTempoDeEmprestimo(self) -> int:
+        return self.__intervaloDeTempoDeEmprestimo
