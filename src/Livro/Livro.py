@@ -18,7 +18,8 @@ class Livro():
         self.__anoPublicacao = anoPublicacao
         self.__qtdDisponivel = 0
         self.__qtdReservas = 0
-        self.__livroObserver = Observer()
+        self.__livroObserver = Observer() # Cria observer
+        self.__status = 0  # criar um enum para DISPONIVEL e EMPRESTADO
 
     def getCodigo(self) -> int:
         return self.__codigo

@@ -15,7 +15,7 @@ class BibliotecaMeta(type):
         return cls._instances[cls]
 
 
-class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
+class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
     def __init__(self):
         self.__livros: list[Livro] = []
         self.__usuarios: list[Usuario] = []
@@ -32,27 +32,11 @@ class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
             novoLivro.setQtdDisponivel(qtdExemplares)
             self.__livros.append(novoLivro)
 
-    def buscarLivroPeloCodigo(self, codigoLivro: int) -> Livro:
-        for livro in self.__livros:
-            if livro.getCodigo() == codigoLivro:
-                return livro
-
     def adicionarUsuario(self, novoUsuario: Usuario) -> None:
         usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
 
         if usuarioEncontrado == None:
             self.__usuarios.append(novoUsuario)
-
-    def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
-        usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
-
-        if usuarioEncontrado == None:
-            self.__usuarios.append(novoUsuario)
-
-    def buscarUsuarioPeloCodigo(self, codigoUsuario: int) -> Usuario:
-        for usuario in self.__usuarios:
-            if usuario.getCodigo() == codigoUsuario:
-                return usuario
 
     def realizarEmprestimo(self, codigoUsuario: int, codigoLivro: int) -> None:
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
@@ -80,19 +64,21 @@ class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
 
         self.__emprestimos.append(Emprestimo(usuario, livro))
 
-        print("Emprestimo realizado com sucesso.")
+        print(
+            f"O livro {livro.getTitulo()} foi emprestado para {usuario.getNome()} com sucesso!"
+        )
 
     def realizarReserva(self, codigoUsuario: int, codigoLivro: int) -> None:
         # Buscar o usuario e livro pelo codigo, respectivamente
-        usuarioEncontrado = self.buscarUsuarioPeloCodigo(codigoUsuario)
-        livroEncontrado = self.buscarLivroPeloCodigo(codigoLivro)
+        usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
+        livro = self.buscarLivroPeloCodigo(codigoLivro)
 
-        if usuarioEncontrado == None:
+        if usuario == None:
             # msg de erro:
             print("Usuario não encontrado. Digite um codigo valido.")
             return
 
-        if livroEncontrado == None:
+        if livro == None:
             # msg de erro:
             print("Livro não encontrado. Digite um codigo valido.")
             return
@@ -105,15 +91,64 @@ class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
             print("O usuario ja possui o limite de reservas.")
 
         # Realizar reserva
-        self.__reservas.append(Reserva(usuarioEncontrado, livroEncontrado))
+        self.__reservas.append(Reserva(usuario, livro))
 
         # msg de sucesso:
         print(
-            f"O livro {livroEncontrado.getTitulo()} foi reservado para {usuarioEncontrado.getNome()} com sucesso!"
+            f"O livro {livro.getTitulo()} foi reservado para {usuario.getNome()} com sucesso!"
         )
 
     def realizarDevolucao(self, codigoUsuario: int, codigoLivro: int) -> None:
-        pass
+        # Buscar o usuario e livro pelo codigo, respectivamente
+        usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
+        livro = self.buscarLivroPeloCodigo(codigoLivro)
+
+        if usuario == None:
+            # msg de erro:
+            print("Usuario não encontrado. Digite um codigo valido.")
+            return
+
+        if livro == None:
+            # msg de erro:
+            print("Livro não encontrado. Digite um codigo valido.")
+            return
+
+        emprestimosUsuario = self.buscarEmprestimosPeloCodigoDoUsuario(codigoUsuario)
+
+        emprestimoASerFinalizado = None
+
+        for emprestimo in emprestimosUsuario:
+            if emprestimo.getLivro().getCodigo() == codigoLivro and (
+                emprestimo.getStatus() == Status.EM_ANDAMENTO
+                or emprestimo.getStatus() == Status.ATRASADO
+            ):
+                emprestimoASerFinalizado = emprestimo
+
+        if emprestimoASerFinalizado == None:
+            print("O usuario nao possui emprestimo em aberto para este livro.")
+            return
+
+        else:
+            emprestimoASerFinalizado.finalizar()
+            print(
+                f"O livro {livro.getTitulo()}, emprestado para {usuario.getNome()}, foi devolvido  com sucesso"
+            )
+
+    def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
+        usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
+
+        if usuarioEncontrado == None:
+            self.__usuarios.append(novoUsuario)
+
+    def buscarLivroPeloCodigo(self, codigoLivro: int) -> Livro:
+        for livro in self.__livros:
+            if livro.getCodigo() == codigoLivro:
+                return livro
+
+    def buscarUsuarioPeloCodigo(self, codigoUsuario: int) -> Usuario:
+        for usuario in self.__usuarios:
+            if usuario.getCodigo() == codigoUsuario:
+                return usuario
 
     def buscarReservasPeloCodigoDoUsuario(self, codigoUsuario: int) -> list[Reserva]:
         reservasEncontradas = []
@@ -178,8 +213,4 @@ class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
         pass
 
 
-# buscar emprestimo pelo codigo de usuario
 # buscar emprestimo pelo codigo de livro
-
-# buscar reserva pelo codigo de usuario
-# buscar reserva pelo codigo de livro

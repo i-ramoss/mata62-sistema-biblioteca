@@ -1,4 +1,3 @@
-from .Usuario import Usuario
-from .EmprestimoBehavior import *
-from .Biblioteca import BibliotecaSingletonFacede
+from .Usuario import Usuario, AlunoGraduacao
+from .Biblioteca import BibliotecaSingletonFacade
 from .Livro import Livro

@@ -1,16 +1,16 @@
 from .IEmprestimoBehavior import IEmprestimoBehavior
-from ..Biblioteca import BibliotecaSingletonFacede
+from ..Biblioteca import BibliotecaSingletonFacade
 
 
 class EmprestimoGraduacao(IEmprestimoBehavior):
     def __init__(self):
         self.__intervaloDeTempoDeEmprestimo = 3
-        self.__limiteDeEmprestimosEmAberto = 4
+        self.__limiteDeEmprestimosEmAberto = 3
 
     def verificarPossibilidadeDeEmprestimo(
         self, codigoUsuario: int, codigoLivro: int
     ) -> bool:
-        biblioteca = BibliotecaSingletonFacede()
+        biblioteca = BibliotecaSingletonFacade()
 
         # (i) Verificar disponibilidade do livro na biblioteca
         livro = biblioteca.buscarLivroPeloCodigo(100)
@@ -46,7 +46,9 @@ class EmprestimoGraduacao(IEmprestimoBehavior):
             if livro.getQtdDisponivel() <= len(
                 biblioteca.buscarReservasPeloCodigoDoLivro(codigoLivro)
             ):
-                print("O livro ja possui reservas.")
+                print(
+                    "O livro ja possui reservas e nao ha exemplares adicionais disponiveis."
+                )
                 return False
 
         # (vi) Verificar se o aluno já não possui o livro em questão emprestado

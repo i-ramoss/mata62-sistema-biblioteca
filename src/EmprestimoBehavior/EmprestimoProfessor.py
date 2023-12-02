@@ -1,20 +1,32 @@
 from .IEmprestimoBehavior import IEmprestimoBehavior
+from ..Biblioteca import BibliotecaSingletonFacade
 
 
 class EmprestimoProfessor(IEmprestimoBehavior):
     def __init__(self):
         self.__intervaloDeTempoDeEmprestimo = 7
 
-    def verificarPossibilidadeDeEmprestimo():
-        # Verificar disponibilidade do livro na biblioteca
-        # Verificar se o aluno está devedor
-        # Verificar o limite de emprestimo do aluno
-        # Verificar se o aluno possui reserva do livro
-        # Se sim e houver livro disponivel ele pode pegar emprestado
-        # Se não, checar se o número de reservas do livro é menor do que a quantidade de livros disponíveis, se sim, ele pode pegar emprestado
-        # Verificar se o aluno já não possui o livro em questão emprestado
-        print("Regra emprestimo professor")
-        pass
+    def verificarPossibilidadeDeEmprestimo(
+        self, codigoUsuario: int, codigoLivro: int
+    ) -> bool:
+        biblioteca = BibliotecaSingletonFacade()
+
+        # (i) Verificar disponibilidade do livro na biblioteca
+        livro = biblioteca.buscarLivroPeloCodigo(100)
+
+        if livro == None:
+            print("O livro nao esta cadastrado na biblioteca.")  # msg console
+            return False
+        if livro.getQtdDisponivel() <= 0:
+            print("O livro não está disponivel.")  # msg console
+            return False
+
+        # (ii) Verificar se o professor está devedor
+        if biblioteca.checarEmprestimoAtrasadoUsuario(codigoUsuario):
+            print("O professor possui emprestimo em atraso.")  # msg console
+            return False
+
+        return True
 
     def getIntervaloDeTempoDeEmprestimo(self) -> int:
         return self.__intervaloDeTempoDeEmprestimo
