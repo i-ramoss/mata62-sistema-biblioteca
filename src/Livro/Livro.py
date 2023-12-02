@@ -1,4 +1,6 @@
-class Livro:
+from ..Listener import IListener
+from ..Observer import Observer
+class Livro():
     def __init__(
         self,
         codigo: int,
@@ -16,6 +18,7 @@ class Livro:
         self.__anoPublicacao = anoPublicacao
         self.__qtdDisponivel = 0
         self.__qtdReservas = 0
+        self.__livroObserver = Observer()
 
     def getCodigo(self) -> int:
         return self.__codigo
@@ -34,6 +37,8 @@ class Livro:
 
     def adicionarReserva(self) -> None:
         self.__qtdReservas += 1
+        if(self.__qtdReservas > 2):
+            self.__livroObserver.notify()
 
     def removerReserva(self) -> None:
         self.__qtdReservas -= 1
