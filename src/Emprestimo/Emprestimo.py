@@ -23,3 +23,7 @@ class Emprestimo:
 
     def getLivro(self) -> Livro:
         return self.__livro
+
+    def finalizar(self) -> None:
+        self.__data_devolucao = datetime.now()
+        self.__status = Status.FINALIZADO
