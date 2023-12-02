@@ -32,27 +32,11 @@ class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
             novoLivro.setQtdDisponivel(qtdExemplares)
             self.__livros.append(novoLivro)
 
-    def buscarLivroPeloCodigo(self, codigoLivro: int) -> Livro:
-        for livro in self.__livros:
-            if livro.getCodigo() == codigoLivro:
-                return livro
-
     def adicionarUsuario(self, novoUsuario: Usuario) -> None:
         usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
 
         if usuarioEncontrado == None:
             self.__usuarios.append(novoUsuario)
-
-    def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
-        usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
-
-        if usuarioEncontrado == None:
-            self.__usuarios.append(novoUsuario)
-
-    def buscarUsuarioPeloCodigo(self, codigoUsuario: int) -> Usuario:
-        for usuario in self.__usuarios:
-            if usuario.getCodigo() == codigoUsuario:
-                return usuario
 
     def realizarEmprestimo(self, codigoUsuario: int, codigoLivro: int) -> None:
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
@@ -114,6 +98,22 @@ class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
 
     def realizarDevolucao(self, codigoUsuario: int, codigoLivro: int) -> None:
         pass
+
+    def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
+        usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
+
+        if usuarioEncontrado == None:
+            self.__usuarios.append(novoUsuario)
+
+    def buscarLivroPeloCodigo(self, codigoLivro: int) -> Livro:
+        for livro in self.__livros:
+            if livro.getCodigo() == codigoLivro:
+                return livro
+
+    def buscarUsuarioPeloCodigo(self, codigoUsuario: int) -> Usuario:
+        for usuario in self.__usuarios:
+            if usuario.getCodigo() == codigoUsuario:
+                return usuario
 
     def buscarReservasPeloCodigoDoUsuario(self, codigoUsuario: int) -> list[Reserva]:
         reservasEncontradas = []
@@ -178,8 +178,4 @@ class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
         pass
 
 
-# buscar emprestimo pelo codigo de usuario
 # buscar emprestimo pelo codigo de livro
-
-# buscar reserva pelo codigo de usuario
-# buscar reserva pelo codigo de livro
