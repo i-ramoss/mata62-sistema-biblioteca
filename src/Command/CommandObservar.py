@@ -1,5 +1,4 @@
 from .ICommand import ICommand
-from ..Biblioteca.Biblioteca import BibliotecaSingletonFacade
 
 
 class CommandObservar(ICommand):
@@ -7,6 +6,7 @@ class CommandObservar(ICommand):
         self.__restoComando = restoComando
 
     def execute(self):
+        from ..Biblioteca import BibliotecaSingletonFacade
         biblioteca = BibliotecaSingletonFacade()
         biblioteca.observarLivroProfessor(
             self.__restoComando[0], self.__restoComando[1]

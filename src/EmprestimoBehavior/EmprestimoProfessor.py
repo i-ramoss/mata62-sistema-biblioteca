@@ -1,5 +1,4 @@
 from .IEmprestimoBehavior import IEmprestimoBehavior
-from ..Biblioteca import BibliotecaSingletonFacade
 
 
 class EmprestimoProfessor(IEmprestimoBehavior):
@@ -9,6 +8,7 @@ class EmprestimoProfessor(IEmprestimoBehavior):
     def verificarPossibilidadeDeEmprestimo(
         self, codigoUsuario: int, codigoLivro: int
     ) -> bool:
+        from ..Biblioteca import BibliotecaSingletonFacade
         biblioteca = BibliotecaSingletonFacade()
 
         # (i) Verificar disponibilidade do livro na biblioteca

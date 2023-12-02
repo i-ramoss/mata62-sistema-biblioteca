@@ -1,3 +1,3 @@
-from .Usuario import Usuario, AlunoGraduacao
 from .Biblioteca import BibliotecaSingletonFacade
+from .Usuario import AlunoGraduacao
 from .Livro import Livro

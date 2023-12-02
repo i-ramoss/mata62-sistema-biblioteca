@@ -157,7 +157,6 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
         emprestimos = self.buscarEmprestimosPeloCodigoDoLivro(codigoLivro)
 
-        console.print()
         console.print(f"Quantidade de emprestimos: {len(emprestimos)}")
         for exemplar in livro.listarExemplares():
             console.print(

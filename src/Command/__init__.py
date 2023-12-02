@@ -5,3 +5,6 @@ from .CommandDevolver import CommandDevolver
 from .CommandReservar import CommandReservar
 from .CommandConsultaUsuario import CommandConsultaUsuario
 from .CommandNotificaoProfessor import CommandNotificacaoProfessor
+from .CommandObservar import CommandObservar
+from .CommandConsultaLivro import CommandConsultaLivro
+from .ICommand import ICommand

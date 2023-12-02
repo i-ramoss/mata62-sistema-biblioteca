@@ -1,13 +1,13 @@
-from .Command.ICommand import ICommand 
-from .Command import CommandEmprestar
-from .Command import CommandAddLivro
-from .Command import CommandAddUser
-from .Command import CommandObservar
-from .Command import CommandReservar
-from .Command import CommandDevolver
-from .Command import CommandConsultaLivro
-from .Command import CommandConsultaUsuario
-from .Command import CommandNotificacaoProfessor
+from ..Command import ICommand 
+from ..Command import CommandEmprestar
+from ..Command import CommandAddLivro
+from ..Command import CommandAddUser
+from ..Command import CommandObservar
+from ..Command import CommandReservar
+from ..Command import CommandDevolver
+from ..Command import CommandConsultaLivro
+from ..Command import CommandConsultaUsuario
+from ..Command import CommandNotificacaoProfessor
 from abc import ABC, abstractmethod
 import sys
 
@@ -23,7 +23,7 @@ class ConsoleMeta(type):
 
 class ConsoleSingleton(metaclass=ConsoleMeta):
     def __init__(self):
-        self.__comando = {
+        self.__comando: ICommand = {
                 "emp": CommandEmprestar,
                 "dev": CommandDevolver,
                 "res": CommandReservar,
@@ -31,6 +31,8 @@ class ConsoleSingleton(metaclass=ConsoleMeta):
                 "lib": CommandConsultaLivro,
                 "usu": CommandConsultaUsuario,
                 "ntf": CommandNotificacaoProfessor,
+                "adu": CommandAddUser,
+                "adl": CommandAddLivro,
                 }
 
     
@@ -51,6 +53,6 @@ class ConsoleSingleton(metaclass=ConsoleMeta):
     def print(self, string: str) -> None:
         print(f"[Console logger]: {string}")
 
-    def print(self, string: str) -> None:
-        print(f"[Console error]: {string}", file=sys.stderror)
+    def printerr(self, string: str) -> None:
+        print(f"[Console error]: {string}", file=sys.stderr)
                 
