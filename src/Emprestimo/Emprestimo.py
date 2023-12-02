@@ -20,3 +20,6 @@ class Emprestimo:
 
     def getUsuario(self) -> Usuario:
         return self.__usuario
+
+    def getLivro(self) -> Livro:
+        return self.__livro
