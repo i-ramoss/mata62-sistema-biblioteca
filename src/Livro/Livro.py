@@ -2,6 +2,7 @@ from ..Listener import IListener
 from ..Observer import Observer
 from .Exemplar import Exemplar
 from ..Enums import StatusExemplar
+from ..Usuario import Professor
 
 
 class Livro:
@@ -26,6 +27,12 @@ class Livro:
 
     def getCodigo(self) -> int:
         return self.__codigo
+    
+    def subscribe(self, professor: Professor) -> int:
+        self.__livroObserver.subscribe(professor)
+    
+    def unsubscribe(self, professor: Professor) -> int:
+        self.__livroObserver.unsubscribe(professor)
 
     def getTitulo(self) -> str:
         return self.__titulo
