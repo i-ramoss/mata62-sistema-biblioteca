@@ -11,42 +11,39 @@ from ..Command.CommandNotificaoProfessor import CommandNotificacaoProfessor
 import sys
 from abc import ABC, abstractmethod
 
-class ConsoleSingleton():
-    __instance = None
-    
+class ConsoleMeta(type):
     #Codigo relacionado a implementação do Singleton em python
-    def __new__(cls):
-        if cls.__instance is None:
-            cls.__instance = super().__new__(cls)
-        return cls.__instance
+    __instances = {}
 
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls.__instances:
+            instance = super().__call__(*args, **kwargs)
+            cls.__instances[cls] = instance
+        return cls.__instances[cls]
+
+class ConsoleSingleton(metaclass=ConsoleMeta):
+    def __init__(self):
+        self.__comando = {
+                "emp": CommandEmprestar,
+                "dev": CommandDevolver,
+                "res": CommandReservar,
+                "obs": CommandObservar,
+                "lib": CommandConsultaLivro,
+                "usu": CommandConsultaUsuario,
+                "ntf": CommandNotificacaoProfessor,
+                }
+
+    
     def getConsoleLoop(self):
         userInput = input("> ")
         userInput = userInput.split()
         comando = userInput[0]
         restListInput = userInput[1:]
-        if comando == "emp":
-            command = CommandEmprestar(restListInput)
-        elif comando == "dev":
-            command = CommandDevolver(restListInput)
-        elif comando == "res":
-            command = CommandReservar(restListInput)
-        elif comando == "obs":
-            command = CommandObservar(restListInput)
-        elif comando == "liv":
-            command = CommandConsultaLivro(restListInput)
-        elif comando == "usu":
-            command = CommandConsultaUsuario(restListInput)
-        elif comando == "ntf":
-            command = CommandNotificaoProfessor(restListInput)
-        elif comando == "adu":
-            command = CommandAddUser(restListInput)
-        elif comando == "adl":
-            command = CommandAddLivro(restListInput)
-        elif comando == "sai":
-            self.print("FuncaoTerminada")
-            exit(0)
         try:
+            command = self.__comando[comando](restListInput)
+            if comando == "sai":
+                self.print("FuncaoTerminada")
+            exit(0)
             command.execute()
         except NotImplementedError:
             self.error("Funcao nao implementada")
