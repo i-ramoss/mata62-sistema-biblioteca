@@ -1,8 +1,4 @@
-from src import (
-    AlunoGraduacao,
-    BibliotecaSingletonFacade,
-    Livro,
-)
+from src import AlunoGraduacao, BibliotecaSingletonFacade, Livro
 
 
 usuario1 = AlunoGraduacao(123, "Flora Ramos")
@@ -13,10 +9,15 @@ engSoftSommervile = Livro(
 )
 
 biblioteca = BibliotecaSingletonFacade()
-biblioteca.adicionarUsuario(usuario1)
 
-biblioteca.adicionarLivro(engSoftSommervile, 5)
+biblioteca.adicionarUsuario(usuario1)
+biblioteca.adicionarUsuario(usuario2)
+biblioteca.adicionarLivro(engSoftSommervile, 2)
 
 biblioteca.realizarReserva(usuario1.getCodigo(), engSoftSommervile.getCodigo())
 biblioteca.realizarEmprestimo(usuario1.getCodigo(), engSoftSommervile.getCodigo())
-biblioteca.realizarDevolucao(usuario1.getCodigo(), engSoftSommervile.getCodigo())
+biblioteca.realizarEmprestimo(usuario2.getCodigo(), engSoftSommervile.getCodigo())
+# biblioteca.realizarDevolucao(usuario2.getCodigo(), engSoftSommervile.getCodigo())
+
+biblioteca.consultarLivro(engSoftSommervile.getCodigo())
+# biblioteca.consultarUsuario(usuario1.getCodigo())
