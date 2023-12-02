@@ -1,14 +1,11 @@
 from src import (
-    Usuario,
-    EmprestimoGraduacao,
-    EmprestimoPosGraduacao,
-    EmprestimoProfessor,
+    AlunoGraduacao,
     BibliotecaSingletonFacede,
     Livro,
 )
 
 
-usuario1 = Usuario(123, "Flora Ramos", EmprestimoGraduacao())
+usuario1 = AlunoGraduacao(123, "Flora Ramos")
 # usuario2 = Usuario(456, "Cecília Ramos", EmprestimoProfessor())
 
 engSoftSommervile = Livro(
