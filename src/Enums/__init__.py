@@ -1,1 +1,2 @@
-from .Status import Status
+from .StatusEmprestimo import StatusEmprestimo
+from .StatusExemplar import StatusExemplar

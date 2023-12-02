@@ -1,3 +1,7 @@
+from .Exemplar import Exemplar
+from ..Enums import StatusExemplar
+
+
 class Livro:
     def __init__(
         self,
@@ -15,8 +19,7 @@ class Livro:
         self.__edicao = edicao
         self.__anoPublicacao = anoPublicacao
         self.__qtdDisponivel = 0
-        self.__qtdReservas = 0
-        self.__status = 0  # criar um enum para DISPONIVEL e EMPRESTADO
+        self.__exemplares: list[Exemplar] = [Exemplar(1)]
 
     def getCodigo(self) -> int:
         return self.__codigo
@@ -25,16 +28,45 @@ class Livro:
         return self.__titulo
 
     def getQtdDisponivel(self) -> int:
-        return self.__qtdDisponivel
+        exemplaresDisponiveis = 0
+
+        for exemplar in self.__exemplares:
+            if exemplar.getStatus() == StatusExemplar.DISPONIVEL:
+                exemplaresDisponiveis += 1
+
+        return exemplaresDisponiveis
 
     def setQtdDisponivel(self, qtdDisponivel: int) -> None:
         self.__qtdDisponivel += qtdDisponivel
 
-    def getQtdReservas(self) -> int:
-        return self.__qtdReservas
+    def listarExemplares(self) -> list[Exemplar]:
+        return self.__exemplares
 
-    def adicionarReserva(self) -> None:
-        self.__qtdReservas += 1
+    def buscarExemplaresPeloStatus(self, status: str) -> list[Exemplar]:
+        exemplares = []
 
-    def removerReserva(self) -> None:
-        self.__qtdReservas -= 1
+        for exemplar in self.__exemplares:
+            if exemplar.getStatus() == status:
+                exemplares.append(exemplar)
+
+        return exemplares
+
+    def buscarExemplarPeloCodigo(self, codigoExemplar: int) -> Exemplar:
+        for exemplar in self.__exemplares:
+            if exemplar.getCodigo() == codigoExemplar:
+                return exemplar
+
+    def __criarExemplar(self) -> None:
+        ultimoCodigo = self.__exemplares[-1].getCodigo()
+
+        self.__exemplares.append(Exemplar(ultimoCodigo + 1))
+
+    def criarExemplares(self, qtdExemplares: int) -> None:
+        for _ in range(qtdExemplares):
+            self.__criarExemplar()
+
+    def getCodigoProximoExemplarASerEmprestado(self) -> int:
+        for exemplar in self.__exemplares:
+            if exemplar.getStatus() == StatusExemplar.DISPONIVEL:
+                exemplar.setStatus(StatusExemplar.EMPRESTADO)
+                return exemplar.getCodigo()
