@@ -1,15 +1,15 @@
-from ..Command.ICommand import ICommand 
-from ..Command.CommandEmprestar import CommandEmprestar
-from ..Command.CommandAddLivro import CommandAddLivro
-from ..Command.CommandAddUser import CommandAddUser
-from ..Command.CommandObservar import CommandObservar
-from ..Command.CommandReservar import CommandReservar
-from ..Command.CommandDevolver import CommandDevolver
-from ..Command.CommandConsultaLivro import CommandConsultaLivro
-from ..Command.CommandConsultaUsuario import CommandConsultaUsuario
-from ..Command.CommandNotificaoProfessor import CommandNotificacaoProfessor
-import sys
+from .Command.ICommand import ICommand 
+from .Command import CommandEmprestar
+from .Command import CommandAddLivro
+from .Command import CommandAddUser
+from .Command import CommandObservar
+from .Command import CommandReservar
+from .Command import CommandDevolver
+from .Command import CommandConsultaLivro
+from .Command import CommandConsultaUsuario
+from .Command import CommandNotificacaoProfessor
 from abc import ABC, abstractmethod
+import sys
 
 class ConsoleMeta(type):
     #Codigo relacionado a implementação do Singleton em python

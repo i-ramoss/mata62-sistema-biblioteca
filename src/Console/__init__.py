@@ -1,1 +1,1 @@
-from .Console import C
+from .Console import ConsoleSingleton

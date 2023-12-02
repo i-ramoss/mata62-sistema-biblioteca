@@ -3,6 +3,7 @@ from ..Livro import Livro
 from ..Emprestimo import Emprestimo
 from ..Reserva import Reserva
 from ..Enums import StatusEmprestimo, StatusExemplar
+from ..Console import ConsoleSingleton
 
 
 class BibliotecaMeta(type):
@@ -40,9 +41,10 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
     def realizarEmprestimo(self, codigoUsuario: int, codigoLivro: int) -> None:
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
         livro = self.buscarLivroPeloCodigo(codigoLivro)
-
+        console = ConsoleSingleton()
+        
         if usuario == None:
-            print("O usuario nao esta cadastrado na biblioteca.")
+            console.print("O usuario nao esta cadastrado na biblioteca.")
             return
 
         # Verificar se o usuário pode realizar empréstimo
@@ -51,7 +53,7 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         )
 
         if not usuarioPodeRealizarOEmprestimo:
-            print("O usuario nao pode realizar o emprestimo.")
+            console.print("O usuario nao pode realizar o emprestimo.")
             return
 
         # Verificar se o usuário possui reserva para o livro
@@ -63,7 +65,7 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
         self.__emprestimos.append(Emprestimo(usuario, livro))
 
-        print(
+        console.print(
             f"O livro {livro.getTitulo()} foi emprestado para {usuario.getNome()} com sucesso!"
         )
 
@@ -71,15 +73,16 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         # Buscar o usuario e livro pelo codigo, respectivamente
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
         livro = self.buscarLivroPeloCodigo(codigoLivro)
+        console = ConsoleSingleton()
 
         if usuario == None:
             # msg de erro:
-            print("Usuario não encontrado. Digite um codigo valido.")
+            console.print("Usuario não encontrado. Digite um codigo valido.")
             return
 
         if livro == None:
             # msg de erro:
-            print("Livro não encontrado. Digite um codigo valido.")
+            console.print("Livro não encontrado. Digite um codigo valido.")
             return
 
         # Checar quantas reservas ele possui (maximo 3)
@@ -87,29 +90,30 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
         if qtdReservas >= 3:
             # msg de erro:
-            print("O usuario ja possui o limite de reservas.")
+            console.print("O usuario ja possui o limite de reservas.")
 
         # Realizar reserva
         self.__reservas.append(Reserva(usuario, livro))
 
         # msg de sucesso:
-        print(
+        console.print(
             f"O livro {livro.getTitulo()} foi reservado para {usuario.getNome()} com sucesso!"
         )
 
     def realizarDevolucao(self, codigoUsuario: int, codigoLivro: int) -> None:
         # Buscar o usuario e livro pelo codigo, respectivamente
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
+        console = ConsoleSingleton()
         livro = self.buscarLivroPeloCodigo(codigoLivro)
 
         if usuario == None:
             # msg de erro:
-            print("Usuario não encontrado. Digite um codigo valido.")
+            console.print("Usuario não encontrado. Digite um codigo valido.")
             return
 
         if livro == None:
             # msg de erro:
-            print("Livro não encontrado. Digite um codigo valido.")
+            console.print("Livro não encontrado. Digite um codigo valido.")
             return
 
         emprestimosUsuario = self.buscarEmprestimosPeloCodigoDoUsuario(codigoUsuario)
@@ -124,72 +128,74 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
                 emprestimoASerFinalizado = emprestimo
 
         if emprestimoASerFinalizado == None:
-            print("O usuario nao possui emprestimo em aberto para este livro.")
+            console.print("O usuario nao possui emprestimo em aberto para este livro.")
             return
 
         else:
             emprestimoASerFinalizado.finalizar()
-            print(
+            console.print(
                 f"O livro {livro.getTitulo()}, emprestado para {usuario.getNome()}, foi devolvido  com sucesso!"
             )
 
     def consultarLivro(self, codigoLivro: int):
         livro = self.buscarLivroPeloCodigo(codigoLivro)
+        console = ConsoleSingleton()
 
         if livro == None:
             # msg de erro:
-            print("Livro não encontrado. Digite um codigo valido.")
+            console.print("Livro não encontrado. Digite um codigo valido.")
             return
 
         reservas = self.buscarReservasPeloCodigoDoLivro(codigoLivro)
 
-        print(f"Titulo do livro: {livro.getTitulo()}")
-        print(f"Quantidade de reservas: {len(reservas)}")
+        console.print(f"Titulo do livro: {livro.getTitulo()}")
+        console.print(f"Quantidade de reservas: {len(reservas)}")
 
         if len(reservas) > 0:
             for reserva in reservas:
-                print(f"Reserva realizada por {reserva.getUsuario().getNome()}.")
+                console.print(f"Reserva realizada por {reserva.getUsuario().getNome()}.")
 
         emprestimos = self.buscarEmprestimosPeloCodigoDoLivro(codigoLivro)
 
-        print()
-        print(f"Quantidade de emprestimos: {len(emprestimos)}")
+        console.print()
+        console.print(f"Quantidade de emprestimos: {len(emprestimos)}")
         for exemplar in livro.listarExemplares():
-            print(
+            console.print(
                 f"Exemplar: {exemplar.getCodigo()} - Status: {exemplar.getStatus().value}"
             )
 
             if exemplar.getStatus() == StatusExemplar.EMPRESTADO:
                 for emprestimo in emprestimos:
                     if exemplar.getCodigo() == emprestimo.getCodigoExemplar():
-                        print(
+                        console.print(
                             f"Emprestimo realizado por: {emprestimo.getUsuario().getNome()}. De {emprestimo.getDataInicio()} a {emprestimo.getDataDevolucao()}"
                         )
 
     def consultarUsuario(self, codigoUsuario: int):
+        console = ConsoleSingleton()
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
 
         if usuario == None:
             # msg de erro:
-            print("Usuario não encontrado. Digite um codigo valido.")
+            console.print("Usuario não encontrado. Digite um codigo valido.")
             return
 
         emprestimos = self.buscarEmprestimosPeloCodigoDoUsuario(codigoUsuario)
         reservas = self.buscarReservasPeloCodigoDoUsuario(codigoUsuario)
 
-        print(f"Emprestimos: {len(emprestimos)}")
+        console.print(f"Emprestimos: {len(emprestimos)}")
         for emprestimo in emprestimos:
-            print(f"Titulo: {emprestimo.getLivro().getTitulo()}")
-            print(
+            console.print(f"Titulo: {emprestimo.getLivro().getTitulo()}")
+            console.print(
                 f"Data: {emprestimo.getDataInicio()} - {emprestimo.getDataDevolucao()}"
             )
-            print(f"Status: {emprestimo.getStatus().value}")
+            console.print(f"Status: {emprestimo.getStatus().value}")
 
-        print()
-        print(f"Reservas: {len(reservas)}")
+        console.print()
+        console.print(f"Reservas: {len(reservas)}")
         for reserva in reservas:
-            print(f"Titulo: {reserva.getLivro().getTitulo()}")
-            print(f"Data solicitacao: {reserva.getDataSolicitacao()}")
+            console.print(f"Titulo: {reserva.getLivro().getTitulo()}")
+            console.print(f"Data solicitacao: {reserva.getDataSolicitacao()}")
 
     def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
         usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
