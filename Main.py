@@ -1,6 +1,6 @@
 from src import (
     AlunoGraduacao,
-    BibliotecaSingletonFacede,
+    BibliotecaSingletonFacade,
     Livro,
 )
 
@@ -12,7 +12,7 @@ engSoftSommervile = Livro(
     100, "Engenharia de Software", "AddisonWesley", ["Ian Sommmervile"], "6ª", 2000
 )
 
-biblioteca = BibliotecaSingletonFacede()
+biblioteca = BibliotecaSingletonFacade()
 biblioteca.adicionarUsuario(usuario1)
 
 biblioteca.adicionarLivro(engSoftSommervile, 5)

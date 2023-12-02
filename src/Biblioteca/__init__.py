@@ -1,1 +1,1 @@
-from .Biblioteca import BibliotecaSingletonFacede
+from .Biblioteca import BibliotecaSingletonFacade

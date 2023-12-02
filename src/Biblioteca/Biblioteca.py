@@ -15,7 +15,7 @@ class BibliotecaMeta(type):
         return cls._instances[cls]
 
 
-class BibliotecaSingletonFacede(metaclass=BibliotecaMeta):
+class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
     def __init__(self):
         self.__livros: list[Livro] = []
         self.__usuarios: list[Usuario] = []
