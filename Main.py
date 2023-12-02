@@ -17,9 +17,7 @@ biblioteca.adicionarLivro(engSoftSommervile, 2)
 biblioteca.realizarReserva(usuario1.getCodigo(), engSoftSommervile.getCodigo())
 biblioteca.realizarEmprestimo(usuario1.getCodigo(), engSoftSommervile.getCodigo())
 biblioteca.realizarEmprestimo(usuario2.getCodigo(), engSoftSommervile.getCodigo())
-biblioteca.realizarDevolucao(usuario2.getCodigo(), engSoftSommervile.getCodigo())
-
-# for exemplar in engSoftSommervile.listarExemplares():
-#     print(f"Codigo: {exemplar.getCodigo()} - Status: {exemplar.getStatus().value}")
+# biblioteca.realizarDevolucao(usuario2.getCodigo(), engSoftSommervile.getCodigo())
 
 biblioteca.consultarLivro(engSoftSommervile.getCodigo())
+# biblioteca.consultarUsuario(usuario1.getCodigo())

@@ -150,19 +150,46 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
             for reserva in reservas:
                 print(f"Reserva realizada por {reserva.getUsuario().getNome()}.")
 
-        emprestimosLivro = self.buscarEmprestimosPeloCodigoDoLivro(codigoLivro)
+        emprestimos = self.buscarEmprestimosPeloCodigoDoLivro(codigoLivro)
 
+        print()
+        print(f"Quantidade de emprestimos: {len(emprestimos)}")
         for exemplar in livro.listarExemplares():
             print(
                 f"Exemplar: {exemplar.getCodigo()} - Status: {exemplar.getStatus().value}"
             )
 
             if exemplar.getStatus() == StatusExemplar.EMPRESTADO:
-                for emprestimo in emprestimosLivro:
+                for emprestimo in emprestimos:
                     if exemplar.getCodigo() == emprestimo.getCodigoExemplar():
                         print(
                             f"Emprestimo realizado por: {emprestimo.getUsuario().getNome()}. De {emprestimo.getDataInicio()} a {emprestimo.getDataDevolucao()}"
                         )
+
+    def consultarUsuario(self, codigoUsuario: int):
+        usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
+
+        if usuario == None:
+            # msg de erro:
+            print("Usuario não encontrado. Digite um codigo valido.")
+            return
+
+        emprestimos = self.buscarEmprestimosPeloCodigoDoUsuario(codigoUsuario)
+        reservas = self.buscarReservasPeloCodigoDoUsuario(codigoUsuario)
+
+        print(f"Emprestimos: {len(emprestimos)}")
+        for emprestimo in emprestimos:
+            print(f"Titulo: {emprestimo.getLivro().getTitulo()}")
+            print(
+                f"Data: {emprestimo.getDataInicio()} - {emprestimo.getDataDevolucao()}"
+            )
+            print(f"Status: {emprestimo.getStatus().value}")
+
+        print()
+        print(f"Reservas: {len(reservas)}")
+        for reserva in reservas:
+            print(f"Titulo: {reserva.getLivro().getTitulo()}")
+            print(f"Data solicitacao: {reserva.getDataSolicitacao()}")
 
     def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
         usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
@@ -250,6 +277,3 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
     def mostraNotificaoProfessor(self, codigoProfessor: int) -> None:
         pass
-
-
-# buscar emprestimo pelo codigo de livro
