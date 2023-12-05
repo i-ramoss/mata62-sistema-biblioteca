@@ -140,6 +140,7 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
         else:
             emprestimoASerFinalizado.finalizar()
+            self.__emprestimos.remove(emprestimoASerFinalizado)
             console.print(
                 f"O livro {livro.getTitulo()}, emprestado para {usuario.getNome()}, foi devolvido  com sucesso!"
             )
@@ -155,7 +156,7 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         reservas = self.buscarReservasPeloCodigoDoLivro(codigoLivro)
 
         console.print(f"Titulo do livro: {livro.getTitulo()}")
-        console.print(f"Quantidade de reservas: {len(reservas)}")
+        console.print(f"----- Quantidade de reservas: {len(reservas)} -----")
 
         if len(reservas) > 0:
             for reserva in reservas:
@@ -163,9 +164,12 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
                     f"Reserva realizada por {reserva.getUsuario().getNome()}."
                 )
 
+        if len(reservas) > 0:
+            console.print("")
+
         emprestimos = self.buscarEmprestimosPeloCodigoDoLivro(codigoLivro)
 
-        console.print(f"Quantidade de emprestimos: {len(emprestimos)}")
+        console.print(f"----- Quantidade de emprestimos: {len(emprestimos)} -----")
         for exemplar in livro.listarExemplares():
             console.print(
                 f"Exemplar: {exemplar.getCodigo()} - Status: {exemplar.getStatus().value}"
@@ -189,18 +193,22 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         emprestimos = self.buscarEmprestimosPeloCodigoDoUsuario(codigoUsuario)
         reservas = self.buscarReservasPeloCodigoDoUsuario(codigoUsuario)
 
-        console.print(f"Emprestimos: {len(emprestimos)}")
+        console.print(f"----- Emprestimos: {len(emprestimos)} -----")
         for emprestimo in emprestimos:
+            console.print(f"Codigo: {emprestimo.getLivro().getCodigo()}")
             console.print(f"Titulo: {emprestimo.getLivro().getTitulo()}")
             console.print(
                 f"Data: {emprestimo.getDataInicio()} - {emprestimo.getDataDevolucao()}"
             )
             console.print(f"Status: {emprestimo.getStatus().value}")
+            console.print("")
 
-        console.print(f"Reservas: {len(reservas)}")
+        console.print(f"----- Reservas: {len(reservas)} -----")
         for reserva in reservas:
+            console.print(f"Codigo: {reserva.getLivro().getCodigo()}")
             console.print(f"Titulo: {reserva.getLivro().getTitulo()}")
             console.print(f"Data solicitacao: {reserva.getDataSolicitacao()}")
+            console.print("")
 
     def buscarLivroPeloCodigo(self, codigoLivro: int) -> Livro:
         for livro in self.__livros:

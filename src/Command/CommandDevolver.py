@@ -9,6 +9,6 @@ class CommandDevolver(ICommand):
         from ..Biblioteca import BibliotecaSingletonFacade
 
         biblioteca = BibliotecaSingletonFacade()
-        biblioteca.devolverLivroUsuario(
+        biblioteca.realizarDevolucao(
             int(self.__restoComando[0]), int(self.__restoComando[1])
         )

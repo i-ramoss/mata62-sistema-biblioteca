@@ -6,5 +6,5 @@ class CommandSair(ICommand):
         self.__restoComando = restoComando
 
     def execute(self):
-        print("Saiu do programa.")
+        print("[Console logger]: Saiu do programa.")
         exit(0)

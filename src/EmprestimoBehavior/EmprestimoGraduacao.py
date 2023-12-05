@@ -36,7 +36,9 @@ class EmprestimoGraduacao(IEmprestimoBehavior):
         )
 
         if len(emprestimosAluno) >= self.__limiteDeEmprestimosEmAberto:
-            print("O aluno atingiu a quantidade máxima de emprestimos em aberto.")
+            console.print(
+                "O aluno atingiu a quantidade máxima de emprestimos em aberto."
+            )
             return False
 
         # (iv) Verificar se o aluno possui reserva do livro
