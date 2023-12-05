@@ -9,21 +9,24 @@ class EmprestimoProfessor(IEmprestimoBehavior):
         self, codigoUsuario: int, codigoLivro: int
     ) -> bool:
         from ..Biblioteca import BibliotecaSingletonFacade
+        from ..Console import ConsoleSingleton
+
         biblioteca = BibliotecaSingletonFacade()
+        console = ConsoleSingleton()
 
         # (i) Verificar disponibilidade do livro na biblioteca
-        livro = biblioteca.buscarLivroPeloCodigo(100)
+        livro = biblioteca.buscarLivroPeloCodigo(codigoLivro)
 
         if livro == None:
-            print("O livro nao esta cadastrado na biblioteca.")  # msg console
+            console.print("O livro nao esta cadastrado na biblioteca.")
             return False
         if livro.getQtdDisponivel() <= 0:
-            print("O livro não está disponivel.")  # msg console
+            console.print("O livro não está disponivel.")
             return False
 
         # (ii) Verificar se o professor está devedor
         if biblioteca.checarEmprestimoAtrasadoUsuario(codigoUsuario):
-            print("O professor possui emprestimo em atraso.")  # msg console
+            console.print("O professor possui emprestimo em atraso.")
             return False
 
         return True

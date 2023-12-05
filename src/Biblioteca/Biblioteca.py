@@ -76,12 +76,10 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         console = ConsoleSingleton()
 
         if usuario == None:
-            # msg de erro:
             console.print("Usuario não encontrado. Digite um codigo valido.")
             return
 
         if livro == None:
-            # msg de erro:
             console.print("Livro não encontrado. Digite um codigo valido.")
             return
 
@@ -89,13 +87,11 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         qtdReservas = len(self.buscarReservasPeloCodigoDoUsuario(codigoUsuario))
 
         if qtdReservas >= 3:
-            # msg de erro:
             console.print("O usuario ja possui o limite de reservas.")
 
         # Realizar reserva
         self.__reservas.append(Reserva(usuario, livro))
 
-        # msg de sucesso:
         console.print(
             f"O livro {livro.getTitulo()} foi reservado para {usuario.getNome()} com sucesso!"
         )
@@ -107,12 +103,10 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         livro = self.buscarLivroPeloCodigo(codigoLivro)
 
         if usuario == None:
-            # msg de erro:
             console.print("Usuario não encontrado. Digite um codigo valido.")
             return
 
         if livro == None:
-            # msg de erro:
             console.print("Livro não encontrado. Digite um codigo valido.")
             return
 
@@ -142,7 +136,6 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         console = ConsoleSingleton()
 
         if livro == None:
-            # msg de erro:
             console.print("Livro não encontrado. Digite um codigo valido.")
             return
 
@@ -177,7 +170,6 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
 
         if usuario == None:
-            # msg de erro:
             console.print("Usuario não encontrado. Digite um codigo valido.")
             return
 

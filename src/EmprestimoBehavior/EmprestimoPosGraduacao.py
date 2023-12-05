@@ -10,21 +10,24 @@ class EmprestimoPosGraduacao(IEmprestimoBehavior):
         self, codigoUsuario: int, codigoLivro: int
     ) -> bool:
         from ..Biblioteca import BibliotecaSingletonFacade
+        from ..Console import ConsoleSingleton
+
         biblioteca = BibliotecaSingletonFacade()
+        console = ConsoleSingleton()
 
         # (i) Verificar disponibilidade do livro na biblioteca
-        livro = biblioteca.buscarLivroPeloCodigo(100)
+        livro = biblioteca.buscarLivroPeloCodigo(codigoLivro)
 
         if livro == None:
-            print("O livro nao esta cadastrado na biblioteca.")  # msg console
+            console.print("O livro nao esta cadastrado na biblioteca.")
             return False
         if livro.getQtdDisponivel() <= 0:
-            print("O livro não está disponivel.")  # msg console
+            console.print("O livro não está disponivel.")
             return False
 
         # (ii) Verificar se o aluno está devedor
         if biblioteca.checarEmprestimoAtrasadoUsuario(codigoUsuario):
-            print("O aluno possui emprestimo em atraso.")  # msg console
+            console.print("O aluno possui emprestimo em atraso.")
             return False
 
         # (iii) Verificar o limite de emprestimo do aluno
@@ -33,7 +36,9 @@ class EmprestimoPosGraduacao(IEmprestimoBehavior):
         )
 
         if len(emprestimosAluno) >= self.__limiteDeEmprestimosEmAberto:
-            print("O aluno atingiu a quantidade máxima de emprestimos em aberto.")
+            console.print(
+                "O aluno atingiu a quantidade máxima de emprestimos em aberto."
+            )
             return False
 
         # (iv) Verificar se o aluno possui reserva do livro
@@ -46,7 +51,7 @@ class EmprestimoPosGraduacao(IEmprestimoBehavior):
             if livro.getQtdDisponivel() <= len(
                 biblioteca.buscarReservasPeloCodigoDoLivro(codigoLivro)
             ):
-                print(
+                console.print(
                     "O livro ja possui reservas e nao ha exemplares adicionais disponiveis."
                 )
                 return False
@@ -54,7 +59,7 @@ class EmprestimoPosGraduacao(IEmprestimoBehavior):
         # (vi) Verificar se o aluno já não possui o livro em questão emprestado
         for emprestimo in emprestimosAluno:
             if emprestimo.getLivro().getCodigo() == codigoLivro:
-                print("O usuario ja possui este livro emprestado.")
+                console.print("O usuario ja possui este livro emprestado.")
                 return False
 
         return True
