@@ -40,17 +40,18 @@ class ConsoleSingleton(metaclass=ConsoleMeta):
         }
 
     def getConsoleLoop(self):
-        userInput = input("> ")
-        userInput = userInput.split()
-        comando = userInput[0]
-        restListInput = userInput[1:]
+        while True:
+            userInput = input("> ")
+            userInput = userInput.split()
+            comando = userInput[0]
+            restListInput = userInput[1:]
 
-        try:
-            command = self.__comando[comando](restListInput)
-            command.execute()
+            try:
+                command = self.__comando[comando](restListInput)
+                command.execute()
 
-        except NotImplementedError:
-            self.error("Funcao nao implementada")
+            except NotImplementedError:
+                self.error("Funcao nao implementada")
 
     def print(self, string: str) -> None:
         print(f"[Console logger]: {string}")
