@@ -7,4 +7,5 @@ from .CommandConsultaUsuario import CommandConsultaUsuario
 from .CommandNotificaoProfessor import CommandNotificacaoProfessor
 from .CommandObservar import CommandObservar
 from .CommandConsultaLivro import CommandConsultaLivro
+from .CommandSair import CommandSair
 from .ICommand import ICommand

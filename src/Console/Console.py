@@ -10,6 +10,7 @@ from ..Command import CommandDevolver
 from ..Command import CommandConsultaLivro
 from ..Command import CommandConsultaUsuario
 from ..Command import CommandNotificacaoProfessor
+from ..Command import CommandSair
 
 
 class ConsoleMeta(type):
@@ -35,6 +36,7 @@ class ConsoleSingleton(metaclass=ConsoleMeta):
             "ntf": CommandNotificacaoProfessor,
             "adu": CommandAddUser,
             "adl": CommandAddLivro,
+            "sai": CommandSair,
         }
 
     def getConsoleLoop(self):
@@ -42,13 +44,11 @@ class ConsoleSingleton(metaclass=ConsoleMeta):
         userInput = userInput.split()
         comando = userInput[0]
         restListInput = userInput[1:]
-        try:
-            if comando == "sai":
-                self.print("Saiu do programa.")
-                exit(0)
 
+        try:
             command = self.__comando[comando](restListInput)
             command.execute()
+
         except NotImplementedError:
             self.error("Funcao nao implementada")
 
