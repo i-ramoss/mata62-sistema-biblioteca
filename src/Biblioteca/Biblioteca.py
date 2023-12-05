@@ -42,7 +42,7 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         usuario = self.buscarUsuarioPeloCodigo(codigoUsuario)
         livro = self.buscarLivroPeloCodigo(codigoLivro)
         console = ConsoleSingleton()
-        
+
         if usuario == None:
             console.print("O usuario nao esta cadastrado na biblioteca.")
             return
@@ -153,7 +153,9 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
         if len(reservas) > 0:
             for reserva in reservas:
-                console.print(f"Reserva realizada por {reserva.getUsuario().getNome()}.")
+                console.print(
+                    f"Reserva realizada por {reserva.getUsuario().getNome()}."
+                )
 
         emprestimos = self.buscarEmprestimosPeloCodigoDoLivro(codigoLivro)
 
@@ -190,7 +192,6 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
             )
             console.print(f"Status: {emprestimo.getStatus().value}")
 
-        console.print()
         console.print(f"Reservas: {len(reservas)}")
         for reserva in reservas:
             console.print(f"Titulo: {reserva.getLivro().getTitulo()}")
@@ -287,4 +288,6 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
     def mostraNotificaoProfessor(self, codigoProfessor: int) -> None:
         console = ConsoleSingleton()
         professor = self.buscarUsuarioPeloCodigo(codigoProfessor)
-        console.print(f"O número de vezes em que o professor foi notificado é: {professor.getVezesNotificado()}")
+        console.print(
+            f"O número de vezes em que o professor foi notificado é: {professor.getVezesNotificado()}"
+        )
