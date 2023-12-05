@@ -7,7 +7,6 @@ class CommandAddUser(ICommand):
 
     def execute(self):
         from ..Biblioteca import BibliotecaSingletonFacade
+
         biblioteca = BibliotecaSingletonFacade()
-        biblioteca.adicionarUsuario(
-            self.__restoComando[0], self.__restoComando[1], self.__restoComando[2]
-        )
+        biblioteca.adicionarUsuario(self.__restoComando[0])

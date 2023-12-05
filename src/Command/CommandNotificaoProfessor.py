@@ -7,5 +7,6 @@ class CommandNotificacaoProfessor(ICommand):
 
     def execute(self):
         from ..Biblioteca import BibliotecaSingletonFacade
+
         biblioteca = BibliotecaSingletonFacade()
-        biblioteca.mostraNotificaoProfessor(self.__restoComando[0])
+        biblioteca.mostraNotificaoProfessor(int(self.__restoComando[0]))

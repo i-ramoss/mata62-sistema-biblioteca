@@ -197,12 +197,6 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
             console.print(f"Titulo: {reserva.getLivro().getTitulo()}")
             console.print(f"Data solicitacao: {reserva.getDataSolicitacao()}")
 
-    def __adicionarUsuario(self, novoUsuario: Usuario) -> None:
-        usuarioEncontrado = self.buscarUsuarioPeloCodigo(novoUsuario.getCodigo())
-
-        if usuarioEncontrado == None:
-            self.__usuarios.append(novoUsuario)
-
     def buscarLivroPeloCodigo(self, codigoLivro: int) -> Livro:
         for livro in self.__livros:
             if livro.getCodigo() == codigoLivro:

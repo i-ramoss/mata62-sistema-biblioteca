@@ -7,5 +7,8 @@ class CommandReservar(ICommand):
 
     def execute(self):
         from ..Biblioteca import BibliotecaSingletonFacade
+
         biblioteca = BibliotecaSingletonFacade()
-        biblioteca.realizarReserva(self.__restoComando[0], self.__restoComando[1])
+        biblioteca.realizarReserva(
+            int(self.__restoComando[0]), int(self.__restoComando[1])
+        )
