@@ -7,5 +7,6 @@ class CommandConsultaLivro(ICommand):
 
     def execute(self):
         from ..Biblioteca import BibliotecaSingletonFacade
+
         biblioteca = BibliotecaSingletonFacade()
-        biblioteca.consultaLivro(self.__restoComando[0])
+        biblioteca.consultarLivro(int(self.__restoComando[0]))
