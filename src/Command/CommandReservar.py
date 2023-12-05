@@ -7,8 +7,12 @@ class CommandReservar(ICommand):
 
     def execute(self):
         from ..Biblioteca import BibliotecaSingletonFacade
-
-        biblioteca = BibliotecaSingletonFacade()
-        biblioteca.realizarReserva(
-            int(self.__restoComando[0]), int(self.__restoComando[1])
-        )
+        from ..Console import ConsoleSingleton
+        try:
+            biblioteca = BibliotecaSingletonFacade()
+            biblioteca.realizarReserva(
+                int(self.__restoComando[0]), int(self.__restoComando[1])
+            )
+        except IndexError:
+            console = ConsoleSingleton()
+            console.print("Houve um erro no formato do seu comando")

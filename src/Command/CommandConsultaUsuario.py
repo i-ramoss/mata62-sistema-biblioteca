@@ -7,6 +7,9 @@ class CommandConsultaUsuario(ICommand):
 
     def execute(self):
         from ..Biblioteca import BibliotecaSingletonFacade
-
-        biblioteca = BibliotecaSingletonFacade()
-        biblioteca.consultarUsuario(int(self.__restoComando[0]))
+        from ..Console import ConsoleSingleton
+        try:
+            biblioteca = BibliotecaSingletonFacade()
+            biblioteca.consultarUsuario(int(self.__restoComando[0]))
+        except IndexError:
+            console.print("Houve um erro no formato do seu comando")
