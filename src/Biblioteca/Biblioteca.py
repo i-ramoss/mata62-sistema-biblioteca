@@ -251,7 +251,7 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
     def removerReservaDeLivro(self, codigoUsuario: int, codigoLivro: int):
         for reserva in self.__reservas:
             if (
-                reserva.getUsuario().getCodigo() == codigoUsuario
+                reserva.getUsuario().getCodigo() == getNomecodigoUsuario
                 and reserva.getLivro().getCodigo() == codigoLivro
             ):
                 self.__reservas.remove(reserva)
@@ -286,9 +286,14 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         return False
 
     def observarLivro(self, codigoUsuario: int, codigoLivro: int) -> None:
-        livro = self.buscarLivroPeloCodigo(codigoLivro)
-        observador = self.buscarUsuarioPeloCodigo(codigoUsuario)
-        livro.subscribe(observador)
+        console = ConsoleSingleton()
+        try:
+            livro = self.buscarLivroPeloCodigo(codigoLivro)
+            observador = self.buscarUsuarioPeloCodigo(codigoUsuario)
+            livro.subscribe(observador)
+            console.print(f"o professor {observador.getNome()} agora está observando o livro: {livro.getTitulo()}")
+        except AttributeError as e:
+            console.print("Verifique se tanto o professor quanto o livro existem")
 
     def mostrarNotificacaoObservador(self, codigoUsuario: int) -> None:
         console = ConsoleSingleton()
