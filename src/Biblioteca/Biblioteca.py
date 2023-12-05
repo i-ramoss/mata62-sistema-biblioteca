@@ -272,16 +272,16 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
         return False
 
-    def observarLivroProfessor(self, codigoProfessor: int, codigoLivro: int) -> None:
+    def observarLivro(self, codigoObservador: int, codigoLivro: int) -> None:
         console = ConsoleSingleton()
         livro = self.buscarLivroPeloCodigo(codigoLivro)
-        professor = self.buscarUsuarioPeloCodigo(codigoProfessor)
+        professor = self.buscarUsuarioPeloCodigo(codigoObservador)
         livro.subscribe(professor)
         pass
 
-    def mostraNotificaoProfessor(self, codigoProfessor: int) -> None:
+    def mostrarNotificacaoObservador(self, codigoUsuario: int) -> None:
         console = ConsoleSingleton()
-        professor = self.buscarUsuarioPeloCodigo(codigoProfessor)
+        observador = self.buscarUsuarioPeloCodigo(codigoUsuario)
         console.print(
-            f"O número de vezes em que o professor foi notificado é: {professor.getVezesNotificado()}"
+            f"O número de vezes em que o observador foi notificado é: {observador.getVezesNotificado()}"
         )

@@ -43,14 +43,5 @@ for livro in livros:
 
     biblioteca.adicionarLivro(novoLivro, livro.get("qtdExemplares"))
 
-
-# biblioteca.realizarReserva(usuario1.getCodigo(), engSoftSommervile.getCodigo())
-# biblioteca.realizarEmprestimo(usuario1.getCodigo(), engSoftSommervile.getCodigo())
-# biblioteca.realizarEmprestimo(usuario2.getCodigo(), engSoftSommervile.getCodigo())
-# biblioteca.realizarDevolucao(usuario2.getCodigo(), engSoftSommervile.getCodigo())
-
-# biblioteca.consultarLivro(engSoftSommervile.getCodigo())
-# biblioteca.consultarUsuario(usuario1.getCodigo())
-
 console = ConsoleSingleton()
 console.getConsoleLoop()

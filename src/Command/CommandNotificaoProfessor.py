@@ -9,4 +9,4 @@ class CommandNotificacaoProfessor(ICommand):
         from ..Biblioteca import BibliotecaSingletonFacade
 
         biblioteca = BibliotecaSingletonFacade()
-        biblioteca.mostraNotificaoProfessor(int(self.__restoComando[0]))
+        biblioteca.mostrarNotificacaoObservador(int(self.__restoComando[0]))
