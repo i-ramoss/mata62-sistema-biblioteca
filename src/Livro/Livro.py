@@ -1,4 +1,3 @@
-from ..Listener import IListener
 from ..Observer import Observer
 from .Exemplar import Exemplar
 from ..Enums import StatusExemplar
@@ -22,17 +21,20 @@ class Livro:
         self.__edicao = edicao
         self.__anoPublicacao = anoPublicacao
         self.__qtdDisponivel = 0
-        self.__livroObserver = Observer() # Cria observer
+        self.__livroObserver = Observer()  # Cria observer
         self.__exemplares: list[Exemplar] = [Exemplar(1)]
 
     def getCodigo(self) -> int:
         return self.__codigo
-    
+
     def subscribe(self, professor: Professor) -> int:
         self.__livroObserver.subscribe(professor)
-    
+
     def unsubscribe(self, professor: Professor) -> int:
         self.__livroObserver.unsubscribe(professor)
+
+    def getObserver(self) -> Observer:
+        return self.__livroObserver
 
     def getTitulo(self) -> str:
         return self.__titulo
@@ -51,11 +53,6 @@ class Livro:
 
     def listarExemplares(self) -> list[Exemplar]:
         return self.__exemplares
-
-    def adicionarReserva(self) -> None:
-        self.__qtdReservas += 1
-        if(self.__qtdReservas > 2):
-            self.__livroObserver.notify()
 
     def buscarExemplaresPeloStatus(self, status: str) -> list[Exemplar]:
         exemplares = []

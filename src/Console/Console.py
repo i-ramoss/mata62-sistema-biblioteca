@@ -9,7 +9,7 @@ from ..Command import CommandReservar
 from ..Command import CommandDevolver
 from ..Command import CommandConsultaLivro
 from ..Command import CommandConsultaUsuario
-from ..Command import CommandNotificacaoProfessor
+from ..Command import CommandNotificacaoObservador
 from ..Command import CommandSair
 
 
@@ -33,7 +33,7 @@ class ConsoleSingleton(metaclass=ConsoleMeta):
             "obs": CommandObservar,
             "lib": CommandConsultaLivro,
             "usu": CommandConsultaUsuario,
-            "ntf": CommandNotificacaoProfessor,
+            "ntf": CommandNotificacaoObservador,
             "adu": CommandAddUser,
             "adl": CommandAddLivro,
             "sai": CommandSair,

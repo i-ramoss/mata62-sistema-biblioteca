@@ -1,7 +1,7 @@
 from .ICommand import ICommand
 
 
-class CommandNotificacaoProfessor(ICommand):
+class CommandNotificacaoObservador(ICommand):
     def __init__(self, restoComando):
         self.__restoComando = restoComando
 

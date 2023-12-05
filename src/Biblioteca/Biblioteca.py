@@ -84,13 +84,26 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
             return
 
         # Checar quantas reservas ele possui (maximo 3)
-        qtdReservas = len(self.buscarReservasPeloCodigoDoUsuario(codigoUsuario))
+        reservasUsuario = self.buscarReservasPeloCodigoDoUsuario(codigoUsuario)
 
-        if qtdReservas >= 3:
+        if len(reservasUsuario) >= 3:
             console.print("O usuario ja possui o limite de reservas.")
+            return
+
+        # Checar se o usuario ja possui reserva para esse livro.
+        for reserva in reservasUsuario:
+            if reserva.getLivro().getCodigo() == codigoLivro:
+                console.print("O usuario ja possui reserva para esse livro.")
+                return
 
         # Realizar reserva
         self.__reservas.append(Reserva(usuario, livro))
+
+        # Avisar aos observadores se o numero de reservas for maior que 2
+        reservasLivro = self.buscarReservasPeloCodigoDoLivro(codigoLivro)
+
+        if len(reservasLivro) > 2:
+            livro.getObserver().notify()
 
         console.print(
             f"O livro {livro.getTitulo()} foi reservado para {usuario.getNome()} com sucesso!"
@@ -264,12 +277,10 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
         return False
 
-    def observarLivro(self, codigoObservador: int, codigoLivro: int) -> None:
-        console = ConsoleSingleton()
+    def observarLivro(self, codigoUsuario: int, codigoLivro: int) -> None:
         livro = self.buscarLivroPeloCodigo(codigoLivro)
-        professor = self.buscarUsuarioPeloCodigo(codigoObservador)
-        livro.subscribe(professor)
-        pass
+        observador = self.buscarUsuarioPeloCodigo(codigoUsuario)
+        livro.subscribe(observador)
 
     def mostrarNotificacaoObservador(self, codigoUsuario: int) -> None:
         console = ConsoleSingleton()

@@ -4,7 +4,7 @@ from .CommandEmprestar import CommandEmprestar
 from .CommandDevolver import CommandDevolver
 from .CommandReservar import CommandReservar
 from .CommandConsultaUsuario import CommandConsultaUsuario
-from .CommandNotificaoProfessor import CommandNotificacaoProfessor
+from .CommandNotificaoObservador import CommandNotificacaoObservador
 from .CommandObservar import CommandObservar
 from .CommandConsultaLivro import CommandConsultaLivro
 from .CommandSair import CommandSair
