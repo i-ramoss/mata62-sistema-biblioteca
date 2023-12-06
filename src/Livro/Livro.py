@@ -1,7 +1,6 @@
 from ..Observer import Observer
 from .Exemplar import Exemplar
 from ..Enums import StatusExemplar
-from ..Usuario import Professor
 
 
 class Livro:
@@ -27,11 +26,11 @@ class Livro:
     def getCodigo(self) -> int:
         return self.__codigo
 
-    def subscribe(self, professor: Professor) -> int:
-        self.__livroObserver.subscribe(professor)
+    def subscribe(self, observador: Observer) -> int:
+        self.__livroObserver.subscribe(observador)
 
-    def unsubscribe(self, professor: Professor) -> int:
-        self.__livroObserver.unsubscribe(professor)
+    def unsubscribe(self, observador: Observer) -> int:
+        self.__livroObserver.unsubscribe(observador)
 
     def getObserver(self) -> Observer:
         return self.__livroObserver
