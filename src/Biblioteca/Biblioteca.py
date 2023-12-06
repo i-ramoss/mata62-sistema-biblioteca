@@ -297,7 +297,10 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
 
     def mostrarNotificacaoObservador(self, codigoUsuario: int) -> None:
         console = ConsoleSingleton()
-        observador = self.buscarUsuarioPeloCodigo(codigoUsuario)
-        console.print(
-            f"O número de vezes em que o observador foi notificado é: {observador.getVezesNotificado()}"
-        )
+        try:
+            observador = self.buscarUsuarioPeloCodigo(codigoUsuario)
+            console.print(
+                f"O número de vezes em que o observador foi notificado é: {observador.getVezesNotificado()}"
+            )
+        except AttributeError as e:
+            console.print("Usuario não é professor")
