@@ -103,7 +103,7 @@ class BibliotecaSingletonFacade(metaclass=BibliotecaMeta):
         reservasLivro = self.buscarReservasPeloCodigoDoLivro(codigoLivro)
 
         if len(reservasLivro) > 2:
-            livro.getObserver().notify()
+            livro.notify()
 
         console.print(
             f"O livro {livro.getTitulo()} foi reservado para {usuario.getNome()} com sucesso!"

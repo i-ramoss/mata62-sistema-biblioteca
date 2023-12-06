@@ -33,8 +33,8 @@ class Livro:
     def unsubscribe(self, professor: Professor) -> int:
         self.__livroObserver.unsubscribe(professor)
 
-    def getObserver(self) -> Observer:
-        return self.__livroObserver
+    def notify(self) -> Observer:
+        self.__livroObserver.notify()
 
     def getTitulo(self) -> str:
         return self.__titulo
