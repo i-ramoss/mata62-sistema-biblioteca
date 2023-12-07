@@ -22,7 +22,7 @@ livros = [
         "autores": ["Ian Sommmervile"],
         "edicao": "6ª",
         "anoPublicacao": 2000,
-        "qtdExemplares": 2,
+        "qtdExemplares": 5,
     },
     {
         "codigo": 101,

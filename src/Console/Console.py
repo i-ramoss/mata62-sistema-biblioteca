@@ -2,8 +2,6 @@ import sys
 
 from ..Command import ICommand
 from ..Command import CommandEmprestar
-from ..Command import CommandAddLivro
-from ..Command import CommandAddUser
 from ..Command import CommandObservar
 from ..Command import CommandReservar
 from ..Command import CommandDevolver
@@ -34,8 +32,6 @@ class ConsoleSingleton(metaclass=ConsoleMeta):
             "lib": CommandConsultaLivro,
             "usu": CommandConsultaUsuario,
             "ntf": CommandNotificacaoObservador,
-            "adu": CommandAddUser,
-            "adl": CommandAddLivro,
             "sai": CommandSair,
         }
 

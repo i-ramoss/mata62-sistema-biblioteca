@@ -1,5 +1,3 @@
-from .CommandAddUser import CommandAddUser
-from .CommandAddLivro import CommandAddLivro
 from .CommandEmprestar import CommandEmprestar
 from .CommandDevolver import CommandDevolver
 from .CommandReservar import CommandReservar
